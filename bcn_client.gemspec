@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{A gem to consume the BCN web service}
   #spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "http://127.0.0.1"
+  spec.homepage      = "https://github.com/djheroez/bcn_client"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -20,8 +20,8 @@ Gem::Specification.new do |spec|
     spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
 
     spec.metadata["homepage_uri"] = spec.homepage
-    spec.metadata["source_code_uri"] = "http://127.0.0.1"
-    spec.metadata["changelog_uri"] = "http://127.0.0.1"
+    spec.metadata["source_code_uri"] = "https://github.com/djheroez/bcn_client"
+    spec.metadata["changelog_uri"] = "https://github.com/djheroez/bcn_client/commits/master"
   else
     raise "RubyGems 2.0 or newer is required to protect against " \
       "public gem pushes."
