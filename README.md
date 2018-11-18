@@ -22,13 +22,12 @@ Or install it yourself as:
 
 ```ruby
 require 'bcn_client'
-include BcnClient
 
-client = Client.new()
+client = BcnClient.create()
 
-client.obtiene_tasa_dia(12,11,2018)
+client.day_rate(12,11,2018)
 
-client.obtiene_tasa_mes(11,2018)
+client.month_rate(11,2018)
 
 ```
 
