@@ -2,6 +2,7 @@ require 'bcn_client/version'
 require 'bcn_client/day_rate'
 require 'bigdecimal'
 require 'savon'
+require 'date'
 
 module BcnClient
   WSDL = 'https://servicios.bcn.gob.ni/Tc_Servicio/ServicioTC.asmx?WSDL'
@@ -25,7 +26,15 @@ module BcnClient
                 )
     end
 
-    def day_rate(day, month, year)
+    def day_rate(*args)
+      if args.size == 0
+        today = DateTime.now
+        day, month, year = today.day, today.month, today.year
+      elsif args.size == 3
+        day, month, year = args
+      else
+        raise ArgumentError.new("Wrong number of arguments")
+      end
       response = @client.call(:recupera_tc_dia,
                               message: {
                                 Dia: day,
@@ -35,7 +44,16 @@ module BcnClient
       BigDecimal.new(response.body[:recupera_tc_dia_response][:recupera_tc_dia_result])
     end
 
-    def month_rate(month, year)
+    def month_rate(*args)
+      if args.size == 0
+        today = DateTime.now
+        month, year = today.month, today.year
+      elsif args.size == 2
+        month, year = args
+      else
+        raise ArgumentError.new("Wrong number of arguments")
+      end
+
       response = @client.call(:recupera_tc_mes,
                               message: {
                                 Mes: month,
