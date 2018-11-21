@@ -25,6 +25,8 @@ require 'bcn_client'
 
 client = BcnClient.create()
 
+# Both methods can be called without parameters and will use the current day
+
 client.day_rate(12,11,2018)
 
 client.month_rate(11,2018)
