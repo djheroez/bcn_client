@@ -18,38 +18,23 @@ module BcnClient
       @client = Savon.client(DEFAULTS.merge(options))
     end
 
-    def day_rate(*args)
-      if args.size == 0
-        today = DateTime.now
-        day, month, year = today.day, today.month, today.year
-      elsif args.size == 3
-        day, month, year = args
-      else
-        raise ArgumentError.new("Wrong number of arguments")
-      end
+    def day_rate(day = nil, month = nil, year = nil)
+      today = DateTime.now
       response = @client.call(:recupera_tc_dia,
                               message: {
-                                Dia: day,
-                                Mes: month,
-                                Ano: year
+                                Dia: day || today.day,
+                                Mes: month || today.month,
+                                Ano: year || today.year
                               })
       BigDecimal(response.body[:recupera_tc_dia_response][:recupera_tc_dia_result])
     end
 
-    def month_rate(*args)
-      if args.size == 0
-        today = DateTime.now
-        month, year = today.month, today.year
-      elsif args.size == 2
-        month, year = args
-      else
-        raise ArgumentError.new("Wrong number of arguments")
-      end
-
+    def month_rate(month = nil, year = nil)
+      today = DateTime.now
       response = @client.call(:recupera_tc_mes,
                               message: {
-                                Mes: month,
-                                Ano: year
+                                Mes: month || today.month,
+                                Ano: year || today.year
                               })
       response.body[:recupera_tc_mes_response][:recupera_tc_mes_result][:detalle_tc][:tc]
               .map { |rate| DayRate.new(rate) }
