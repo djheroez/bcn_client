@@ -10,7 +10,7 @@ module BcnClient
         @year = bcn_rate[:ano]
         @month = bcn_rate[:mes]
         @day = bcn_rate[:dia]
-        @value = BigDecimal.new(bcn_rate[:valor])
+        @value = BigDecimal(bcn_rate[:valor])
       end
     end
 
