@@ -1,19 +1,21 @@
 module BcnClient
-  WSDL = 'https://servicios.bcn.gob.ni/Tc_Servicio/ServicioTC.asmx?WSDL'
+  DEFAULTS = {
+    wsdl: 'https://servicios.bcn.gob.ni/Tc_Servicio/ServicioTC.asmx?WSDL',
+    log_level: :info,
+    log: false,
+    pretty_print_xml: true,
+    ssl_verify_mode: true,
+    convert_request_keys_to: :camelcase,
+  }.freeze
 
-  def self.create(wsdl: WSDL, log_level: :info, log: false)
-    Client.new(wsdl: wsdl, log_level: log_level, log: log)
+  def self.create(options)
+    Client.new(options)
   end
 
   class Client
-    def initialize(wsdl: WSDL, log_level: :info, log: false)
-      @client = Savon.client(
-                  wsdl: wsdl,
-                  log_level: log_level,
-                  pretty_print_xml: true,
-                  log: log,
-                  convert_request_keys_to: :camelcase
-                )
+
+    def initialize(options)
+      @client = Savon.client(DEFAULTS.merge(options))
     end
 
     def day_rate(*args)
@@ -31,7 +33,7 @@ module BcnClient
                                 Mes: month,
                                 Ano: year
                               })
-      BigDecimal.new(response.body[:recupera_tc_dia_response][:recupera_tc_dia_result])
+      BigDecimal(response.body[:recupera_tc_dia_response][:recupera_tc_dia_result])
     end
 
     def month_rate(*args)
