@@ -4,7 +4,7 @@ module BcnClient
     log_level: :info,
     log: false,
     pretty_print_xml: true,
-    ssl_verify_mode: true,
+    ssl_verify_mode: :peer,
     convert_request_keys_to: :camelcase,
   }.freeze
 
