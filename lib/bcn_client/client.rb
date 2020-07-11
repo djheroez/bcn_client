@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BcnClient
   DEFAULTS = {
     wsdl: 'https://servicios.bcn.gob.ni/Tc_Servicio/ServicioTC.asmx?WSDL',

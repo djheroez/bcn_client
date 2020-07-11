@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BcnClient
   class DayRate
     attr_accessor :day, :month, :year, :rate, :date, :value
