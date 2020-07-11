@@ -13,7 +13,6 @@ module BcnClient
   end
 
   class Client
-
     def initialize(options)
       @client = Savon.client(DEFAULTS.merge(options))
     end
@@ -26,7 +25,10 @@ module BcnClient
                                 Mes: month || today.month,
                                 Ano: year || today.year
                               })
-      BigDecimal(response.body[:recupera_tc_dia_response][:recupera_tc_dia_result])
+      dia_response = response.body&.[](:recupera_tc_dia_response)
+      return nil if dia_response.nil?
+
+      BigDecimal(dia_response&.[](:recupera_tc_dia_result))
     end
 
     def month_rate(month = nil, year = nil)
@@ -36,8 +38,11 @@ module BcnClient
                                 Mes: month || today.month,
                                 Ano: year || today.year
                               })
-      response.body[:recupera_tc_mes_response][:recupera_tc_mes_result][:detalle_tc][:tc]
-              .map { |rate| DayRate.new(rate) }
+      mes_response = response.body&.[](:recupera_tc_mes_response)
+      return nil if mes_response.nil?
+
+      mes_response&.[](:recupera_tc_mes_result)&.[](:detalle_tc)&.[](:tc)
+                  &.map { |rate| DayRate.new(rate) }
     end
   end
 end
