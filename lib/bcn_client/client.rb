@@ -10,12 +10,12 @@ module BcnClient
     convert_request_keys_to: :camelcase,
   }.freeze
 
-  def self.create(options)
+  def self.create(options = {})
     Client.new(options)
   end
 
   class Client
-    def initialize(options)
+    def initialize(options = {})
       @client = Savon.client(DEFAULTS.merge(options))
     end
 
