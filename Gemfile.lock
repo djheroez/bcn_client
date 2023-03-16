@@ -28,7 +28,7 @@ GEM
     parser (2.7.1.4)
       ast (~> 2.4.1)
     racc (1.6.0)
-    rack (2.2.3.1)
+    rack (3.0.7)
     rainbow (3.0.0)
     rake (13.0.1)
     regexp_parser (1.7.1)
